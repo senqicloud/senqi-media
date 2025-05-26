@@ -1,0 +1,64 @@
+# Help files
+HELP.md
+
+# Target directories and Maven wrapper jar exceptions
+target/
+!.mvn/wrapper/maven-wrapper.jar
+!**/src/main/**/target/
+!**/src/test/**/target/
+
+# Maven build output exclusions for NetBeans and Gradle
+build/
+!**/src/main/**/build/
+!**/src/test/**/build/
+
+# IDE-specific files
+
+## Spring Tool Suite (STS)
+.apt_generated
+.classpath
+.factorypath
+.project
+.settings
+.springBeans
+.sts4-cache
+
+## IntelliJ IDEA
+.idea
+*.iws
+*.iml
+*.ipr
+
+## NetBeans
+/nbproject/private/
+/nbbuild/
+/dist/
+/nbdist/
+/.nb-gradle/
+
+## VS Code
+.vscode/
+
+# Nuxt dev/build outputs
+.output
+.data
+.nuxt
+.nitro
+.cache
+dist
+
+# Node modules
+node_modules/
+
+# Logs
+logs/
+*.log
+
+# Miscellaneous system files
+.DS_Store
+.fleet
+
+# Environment files
+.env
+.env.*
+!.env.example

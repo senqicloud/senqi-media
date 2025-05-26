@@ -1,0 +1,3 @@
+spring:
+  application:
+    name: senqi-pic-server
