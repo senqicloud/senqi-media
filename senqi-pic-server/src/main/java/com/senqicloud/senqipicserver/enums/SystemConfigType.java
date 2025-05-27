@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public enum SystemConfigEnum {
+public enum SystemConfigType {
     SYSTEM_NAME("SYSTEM_NAME","系统名称");
 
     private final String key;
@@ -15,7 +15,7 @@ public enum SystemConfigEnum {
      * 判断传入的 key 是否存在于枚举中
      */
     public static boolean containsKey(String key) {
-        for (SystemConfigEnum config : values()) {
+        for (SystemConfigType config : values()) {
             if (config.getKey().equalsIgnoreCase(key)) {
                 return true;
             }
