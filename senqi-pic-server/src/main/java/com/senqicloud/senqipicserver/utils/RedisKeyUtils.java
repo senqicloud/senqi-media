@@ -3,13 +3,19 @@ package com.senqicloud.senqipicserver.utils;
 import com.senqicloud.senqipicserver.enums.RedisSceneKey;
 import com.senqicloud.senqipicserver.enums.RedisTypeKey;
 import com.senqicloud.senqipicserver.enums.RedisModuleKey;
+import com.senqicloud.senqipicserver.enums.UserActionType;
 
 public class RedisKeyUtils {
 
 
     // 邮箱验证码（如注册、登录等场景）
-    public static String getEmailCaptchaKey(String scene, String email) {
-        return String.format("%s:%s:%s:%s:%s", RedisModuleKey.AUTH, RedisTypeKey.CAPTCHA, scene, RedisSceneKey.EMAIL, email);
+    public static String getEmailCaptchaKey(UserActionType userActionType, String email) {
+        return String.format("%s:%s:%s:%s:%s", RedisModuleKey.AUTH, RedisTypeKey.CAPTCHA, userActionType, RedisSceneKey.EMAIL, email);
+    }
+
+    // 短信验证码（如注册、登录等场景）
+    public static String getSmsCaptchaKey(UserActionType userActionType, String phone) {
+        return String.format("%s:%s:%s:%s:%s", RedisModuleKey.AUTH, RedisTypeKey.CAPTCHA, userActionType, RedisSceneKey.SMS, phone);
     }
 
     // 图形验证码（比如验证码uuid）

@@ -2,9 +2,13 @@ package com.senqicloud.senqipicserver.controller;
 
 import com.senqicloud.senqipicserver.enums.RedisSceneKey;
 import com.senqicloud.senqipicserver.exception.ValidateException;
+import com.senqicloud.senqipicserver.model.request.UserLoginRequest;
 import com.senqicloud.senqipicserver.model.request.UserRegisterRequest;
+import com.senqicloud.senqipicserver.model.response.UserLoginResponse;
 import com.senqicloud.senqipicserver.model.response.UserRegisterResponse;
 import com.senqicloud.senqipicserver.service.UserService;
+import com.senqicloud.senqipicserver.strategy.LoginStrategy;
+import com.senqicloud.senqipicserver.strategy.LoginStrategyFactory;
 import com.senqicloud.senqipicserver.utils.RedisKeyUtils;
 import com.senqicloud.senqipicserver.utils.RedisUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +27,9 @@ public class UserController {
 
     @Autowired
     private RedisUtils redisUtils;
+
+    @Autowired
+    private LoginStrategyFactory loginStrategyFactory;
 
     @PostMapping("/register")
     public UserRegisterResponse register(@RequestBody UserRegisterRequest userRegisterRequest){
@@ -44,4 +51,15 @@ public class UserController {
         // 3. 执行注册业务
         return userService.register(userRegisterRequest);
     }
+
+    @PostMapping("/login")
+    public UserLoginResponse login(@RequestBody UserLoginRequest userLoginRequest){
+        // 1. 获取对应的登录策略
+        LoginStrategy strategy = loginStrategyFactory.getStrategy(userLoginRequest.getLoginType());
+
+        // 2. 调用实际的登录方法
+        return strategy.login(userLoginRequest);
+
+    }
+
 }

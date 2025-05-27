@@ -1,9 +1,6 @@
 package com.senqicloud.senqipicserver.enums;
 
 public enum RedisSceneKey {
-    REGISTER("register"),
-    LOGIN("login"),
-    RESET("reset"),
     IMAGE("image"), // 图形验证码
     EMAIL("email"), // 邮箱验证码
     SMS("sms");     // 短信验证码
