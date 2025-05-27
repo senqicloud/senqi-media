@@ -1,6 +1,7 @@
 package com.senqicloud.senqipicserver.controller;
 
 import com.senqicloud.senqipicserver.enums.RedisSceneKey;
+import com.senqicloud.senqipicserver.enums.UserActionType;
 import com.senqicloud.senqipicserver.exception.ValidateException;
 import com.senqicloud.senqipicserver.model.request.UserLoginRequest;
 import com.senqicloud.senqipicserver.model.request.UserRegisterRequest;
@@ -42,7 +43,7 @@ public class UserController {
         }
 
         // 2. 判断邮箱或者短信验证码是否正确
-        String redisEmailCode = redisUtils.get(RedisKeyUtils.getEmailCaptchaKey(RedisSceneKey.REGISTER.get(), userRegisterRequest.getEmail())).toString();
+        String redisEmailCode = redisUtils.get(RedisKeyUtils.getEmailCaptchaKey(UserActionType.REGISTER, userRegisterRequest.getEmail())).toString();
 
         if (!userRegisterRequest.getCode().equals(redisEmailCode)){
             throw new ValidateException("验证码错误！");

@@ -21,6 +21,6 @@ public class EmailCodeLoginStrategy implements LoginStrategy {
 
     @Override
     public UserLoginResponse login(UserLoginRequest userLoginRequest) {
-        return userService.loginByEmailCode(userLoginRequest);;
+        return userService.loginByEmailCode(userLoginRequest);
     }
 }
