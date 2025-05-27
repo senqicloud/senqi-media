@@ -10,4 +10,16 @@ public enum SystemConfigEnum {
 
     private final String key;
     private final String value;
+
+    /**
+     * 判断传入的 key 是否存在于枚举中
+     */
+    public static boolean containsKey(String key) {
+        for (SystemConfigEnum config : values()) {
+            if (config.getKey().equalsIgnoreCase(key)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }
