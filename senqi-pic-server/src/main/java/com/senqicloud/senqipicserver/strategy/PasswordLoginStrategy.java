@@ -20,7 +20,6 @@ public class PasswordLoginStrategy implements LoginStrategy{
 
     @Override
     public UserLoginResponse login(UserLoginRequest userLoginRequest) {
-
         return userService.loginByAccountAndPassword(userLoginRequest);
     }
 

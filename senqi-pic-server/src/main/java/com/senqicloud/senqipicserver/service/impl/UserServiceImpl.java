@@ -63,7 +63,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 1. 构建查询器
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         // 判断密码
-        queryWrapper.eq(User::getPassword,userLoginRequest.getPassword());
+        queryWrapper.eq(User::getPassword, userLoginRequest.getPassword());
 
         // 2. 根据 Account 判断类型
         String account = userLoginRequest.getAccount();
@@ -76,13 +76,13 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             queryWrapper.eq(User::getPhone, account);
         } else {
             // 用户名 + 密码
-            queryWrapper.eq(User::getUsername,account);
+            queryWrapper.eq(User::getUsername, account);
         }
 
         // 3. 执行登录校验
         User userLogin = this.getOne(queryWrapper);
 
-        if (userLogin == null){
+        if (userLogin == null) {
             throw new ValidateException("账号或密码错误！");
         }
 
@@ -91,7 +91,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         // 5. 封装返回对象
         UserInfoResponse userInfoResponse = new UserInfoResponse();
-        BeanUtils.copyProperties(userLogin,userInfoResponse);
+        BeanUtils.copyProperties(userLogin, userInfoResponse);
 
         UserLoginResponse userLoginResponse = new UserLoginResponse();
         userLoginResponse.setToken(token);
@@ -164,5 +164,15 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         userLoginResponse.setUserInfo(userInfoResponse);
 
         return userLoginResponse;
+    }
+
+    @Override
+    public boolean logout(String token) {
+        String redisKey = RedisKeyUtils.getJwtTokenKey(jwtTokenService.getJwtTokenId(token));
+
+        // 加到 Redis 黑名单中
+        redisUtils.set(redisKey, true);
+
+        return true;
     }
 }

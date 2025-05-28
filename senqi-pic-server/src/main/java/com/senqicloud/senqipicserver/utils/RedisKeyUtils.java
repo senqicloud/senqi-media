@@ -27,5 +27,10 @@ public class RedisKeyUtils {
     public static String getCaptchaKey(String module,String scene, String type, String receiver) {
         return String.format("%s:%s:%s:%s:%s", module, RedisTypeKey.CAPTCHA, scene, type, receiver);
     }
+
+    // JWT Token key
+    public static String getJwtTokenKey(String jti){
+        return String.format("%s:%s:%s","JWT","BLACKLIST",jti);
+    }
 }
 

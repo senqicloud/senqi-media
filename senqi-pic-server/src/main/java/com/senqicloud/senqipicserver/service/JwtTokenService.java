@@ -14,4 +14,7 @@ public interface JwtTokenService {
 
     // 从 Token 中获取 UserID
     Long getUserIdFromToken(String token);
+
+    // 获取 JWT Token ID
+    String getJwtTokenId(String token);
 }

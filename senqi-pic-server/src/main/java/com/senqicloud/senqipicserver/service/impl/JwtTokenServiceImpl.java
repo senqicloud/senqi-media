@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.security.Key;
 import java.util.Date;
+import java.util.UUID;
 
 @Service
 public class JwtTokenServiceImpl implements JwtTokenService {
@@ -34,6 +35,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         return Jwts.builder()
                 .setSubject(String.valueOf(user.getId())) // 用户 ID 作为唯一标识
                 .claim("username", user.getUsername())
+                .setId(UUID.randomUUID().toString())      // 设置 JWT Token ID
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -56,6 +58,11 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     @Override
     public Long getUserIdFromToken(String token) {
         return Long.valueOf(getClaims(token).getSubject());
+    }
+
+    @Override
+    public String getJwtTokenId(String token) {
+        return getClaims(token).getId();
     }
 
     @Override

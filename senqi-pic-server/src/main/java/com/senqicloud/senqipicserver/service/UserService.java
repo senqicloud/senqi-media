@@ -15,4 +15,6 @@ public interface UserService extends IService<User> {
     UserLoginResponse loginBySmsCode(UserLoginRequest userLoginRequest);
 
     UserLoginResponse loginByEmailCode(UserLoginRequest userLoginRequest);
+
+    boolean logout(String token);
 }
