@@ -12,6 +12,7 @@ import com.senqicloud.senqipicserver.model.request.UserRegisterRequest;
 import com.senqicloud.senqipicserver.model.response.UserInfoResponse;
 import com.senqicloud.senqipicserver.model.response.UserLoginResponse;
 import com.senqicloud.senqipicserver.model.response.UserRegisterResponse;
+import com.senqicloud.senqipicserver.service.JwtTokenService;
 import com.senqicloud.senqipicserver.service.UserService;
 import com.senqicloud.senqipicserver.utils.RedisKeyUtils;
 import com.senqicloud.senqipicserver.utils.RedisUtils;
@@ -24,6 +25,9 @@ import org.springframework.stereotype.Service;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
     @Autowired
     private RedisUtils redisUtils;
+
+    @Autowired
+    private JwtTokenService jwtTokenService;
 
     @Override
     public UserRegisterResponse register(UserRegisterRequest userRegisterRequest) {
@@ -82,8 +86,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
             throw new ValidateException("账号或密码错误！");
         }
 
-        // 4. TODO 生成登录 JWT Token
-        String token = "token";
+        // 4. 生成登录 JWT Token
+        String token = jwtTokenService.generateToken(userLogin);
 
         // 5. 封装返回对象
         UserInfoResponse userInfoResponse = new UserInfoResponse();
@@ -108,19 +112,21 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         // 2. 校验成功，封装返回数据
-        // TODO JWT Token 获取
-        String token = "token";
 
-        // 3. 查询数据库，封装 UserInfoResponse
+        // 3. 查询数据库，获取用户信息
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getPhone, phone);
 
         User user = this.getOne(queryWrapper);
 
+        // 4. 获取 JWT Token
+        String token = jwtTokenService.generateToken(user);
+
+        // 5. 封装 UserInfoResponse
         UserInfoResponse userInfoResponse = new UserInfoResponse();
         BeanUtils.copyProperties(user, userInfoResponse);
 
-        // 4. 封装返回对象
+        // 6. 封装返回对象
         UserLoginResponse userLoginResponse = new UserLoginResponse();
         userLoginResponse.setToken(token);
         userLoginResponse.setUserInfoResponse(userInfoResponse);
@@ -140,14 +146,14 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         // 2. 校验成功，封装返回数据
-        // TODO JWT Token 获取
-        String token = "token";
 
         // 3. 查询数据库，封装 UserInfoResponse
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(User::getEmail, email);
 
         User user = this.getOne(queryWrapper);
+
+        String token = jwtTokenService.generateToken(user);
 
         UserInfoResponse userInfoResponse = new UserInfoResponse();
         BeanUtils.copyProperties(user, userInfoResponse);
