@@ -72,12 +72,11 @@ public class UserController {
     // 退出登录
     @PostMapping("/logout")
     public String login(HttpServletRequest request) {
-        // TODO 从 Redis 中删除 JWT Token ID
+        // 从 Redis 中删除 JWT Token ID
         String authHeader = request.getHeader("Authorization");
         String token = "";
         if (authHeader != null && authHeader.startsWith("Bearer ")) {
             token = authHeader.substring(7); // 去掉 "Bearer " 前缀
-            // 这里的 token 就是 JWT 字符串
         }
 
         return userService.logout(token) ? "退出成功！" : "退出失败！";
