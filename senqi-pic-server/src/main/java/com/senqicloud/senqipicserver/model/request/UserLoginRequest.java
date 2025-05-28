@@ -4,6 +4,7 @@ import com.senqicloud.senqipicserver.enums.LoginType;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Data
@@ -29,6 +30,6 @@ public class UserLoginRequest {
     private String code;
 
     // 登录类型
-    @NotBlank(message = "登录类型不能为空")
+    @NotNull(message = "登录类型不能为空")
     private LoginType loginType;
 }

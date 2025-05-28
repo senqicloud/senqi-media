@@ -1,6 +1,7 @@
 package com.senqicloud.senqipicserver.strategy;
 
 import com.senqicloud.senqipicserver.enums.LoginType;
+import com.senqicloud.senqipicserver.exception.ServerErrorException;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -19,6 +20,6 @@ public class LoginStrategyFactory {
         return strategies.stream()
                 .filter(s -> s.supports(loginType))
                 .findFirst()
-                .orElseThrow(() -> new IllegalArgumentException("不支持的登录方式"));
+                .orElseThrow(() -> new ServerErrorException("不支持的登录方式"));
     }
 }

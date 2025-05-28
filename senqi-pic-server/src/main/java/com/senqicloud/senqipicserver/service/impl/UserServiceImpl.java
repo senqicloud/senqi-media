@@ -95,7 +95,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
 
         UserLoginResponse userLoginResponse = new UserLoginResponse();
         userLoginResponse.setToken(token);
-        userLoginResponse.setUserInfoResponse(userInfoResponse);
+        userLoginResponse.setUserInfo(userInfoResponse);
 
         return userLoginResponse;
     }
@@ -129,7 +129,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 6. 封装返回对象
         UserLoginResponse userLoginResponse = new UserLoginResponse();
         userLoginResponse.setToken(token);
-        userLoginResponse.setUserInfoResponse(userInfoResponse);
+        userLoginResponse.setUserInfo(userInfoResponse);
 
         return userLoginResponse;
     }
@@ -161,7 +161,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 4. 封装返回对象
         UserLoginResponse userLoginResponse = new UserLoginResponse();
         userLoginResponse.setToken(token);
-        userLoginResponse.setUserInfoResponse(userInfoResponse);
+        userLoginResponse.setUserInfo(userInfoResponse);
 
         return userLoginResponse;
     }

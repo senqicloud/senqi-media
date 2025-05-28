@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 
 @RestController
 @RequestMapping("/user")
@@ -54,7 +56,7 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public UserLoginResponse login(@RequestBody UserLoginRequest userLoginRequest){
+    public UserLoginResponse login(@Valid @RequestBody UserLoginRequest userLoginRequest){
         // 1. 获取对应的登录策略
         LoginStrategy strategy = loginStrategyFactory.getStrategy(userLoginRequest.getLoginType());
 

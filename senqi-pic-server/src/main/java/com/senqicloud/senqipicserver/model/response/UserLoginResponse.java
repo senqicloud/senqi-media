@@ -9,5 +9,5 @@ public class UserLoginResponse {
     private String token;
 
     // 用户的基本信息
-    private UserInfoResponse userInfoResponse;
+    private UserInfoResponse userInfo;
 }
