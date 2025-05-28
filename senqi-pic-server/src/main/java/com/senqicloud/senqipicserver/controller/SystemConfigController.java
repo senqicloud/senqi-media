@@ -4,10 +4,7 @@ import com.senqicloud.senqipicserver.enums.SystemConfigType;
 import com.senqicloud.senqipicserver.exception.ValidateException;
 import com.senqicloud.senqipicserver.service.SystemConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -19,7 +16,7 @@ public class SystemConfigController {
     private SystemConfigService systemConfigService;
 
     // 获取系统配置信息
-    @GetMapping("/all")
+    @GetMapping("/getAll")
     public Map<String, String> getAllConfigs() {
         return systemConfigService.getAllConfigs();
     }

@@ -80,9 +80,7 @@ public class UserController {
             // 这里的 token 就是 JWT 字符串
         }
 
-
         return userService.logout(token) ? "退出成功！" : "退出失败！";
-
     }
 
 }
