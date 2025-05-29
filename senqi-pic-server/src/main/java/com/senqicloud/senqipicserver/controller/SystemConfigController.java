@@ -8,20 +8,28 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
+/**
+ *  系统配置管理
+ * */
+
 @RestController
-@RequestMapping("/api/config")
+@RequestMapping("/config")
 public class SystemConfigController {
 
     @Autowired
     private SystemConfigService systemConfigService;
 
-    // 获取系统配置信息
+    /**
+     * 获取系统配置信息
+     */
     @GetMapping("/getAll")
     public Map<String, String> getAllConfigs() {
         return systemConfigService.getAllConfigs();
     }
 
-    // 获取指定系统配置
+    /**
+     * 获取指定系统配置
+     */
     @GetMapping("/{key}")
     public String getConfigByKey(@PathVariable("key") String key) {
         // 判断参数是否正确

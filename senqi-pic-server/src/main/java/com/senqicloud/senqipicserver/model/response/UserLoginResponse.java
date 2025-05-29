@@ -5,6 +5,7 @@ import lombok.Data;
 
 @Data
 public class UserLoginResponse {
+
     // 登录的 JWT token
     private String token;
 

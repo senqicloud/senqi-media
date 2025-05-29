@@ -22,6 +22,10 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 
 
+/**
+ *  用户管理
+ * */
+
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -38,8 +42,11 @@ public class UserController {
     @Autowired
     private JwtTokenService jwtTokenService;
 
+    /**
+     *  用户注册
+     * */
     @PostMapping("/register")
-    public UserRegisterResponse register(@RequestBody UserRegisterRequest userRegisterRequest) {
+    public UserRegisterResponse register(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
         // 1. 校验图形验证码是否正确
         // 根据 图形验证码ID + 图形验证码校验
         String redisCaptchaCode = redisUtils.get(RedisKeyUtils.getImageCaptchaKey(userRegisterRequest.getCaptchaId())).toString();
@@ -59,6 +66,9 @@ public class UserController {
         return userService.register(userRegisterRequest);
     }
 
+    /**
+     *  用户登录
+     * */
     @PostMapping("/login")
     public UserLoginResponse login(@Valid @RequestBody UserLoginRequest userLoginRequest) {
         // 1. 获取对应的登录策略
@@ -69,7 +79,9 @@ public class UserController {
 
     }
 
-    // 退出登录
+    /**
+     *  退出登录
+     */
     @PostMapping("/logout")
     public String login(HttpServletRequest request) {
         // 从 Redis 中删除 JWT Token ID
