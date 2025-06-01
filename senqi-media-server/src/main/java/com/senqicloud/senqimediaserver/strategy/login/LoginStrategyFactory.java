@@ -1,4 +1,4 @@
-package com.senqicloud.senqimediaserver.strategy;
+package com.senqicloud.senqimediaserver.strategy.login;
 
 import com.senqicloud.senqimediaserver.enums.LoginType;
 import com.senqicloud.senqimediaserver.exception.ServerErrorException;
