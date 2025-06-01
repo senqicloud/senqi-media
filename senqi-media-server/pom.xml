@@ -11,8 +11,8 @@
 	<groupId>com.senqicloud</groupId>
 	<artifactId>senqi-media-server</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>senqi-pic-server</name>
-	<description>senqi-pic-server</description>
+	<name>senqi-media-server</name>
+	<description>senqi-media-server</description>
 	<url/>
 	<licenses>
 		<license/>
