@@ -1,8 +1,8 @@
 package com.senqicloud.senqimediaserver.utils;
 
+import com.senqicloud.senqimediaserver.enums.RedisModuleKey;
 import com.senqicloud.senqimediaserver.enums.RedisSceneKey;
 import com.senqicloud.senqimediaserver.enums.RedisTypeKey;
-import com.senqicloud.senqimediaserver.enums.RedisModuleKey;
 import com.senqicloud.senqimediaserver.enums.UserActionType;
 
 public class RedisKeyUtils {
