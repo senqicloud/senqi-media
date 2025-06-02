@@ -1,13 +1,12 @@
 package com.senqicloud.senqimediaserver.controller;
 
 import com.senqicloud.senqimediaserver.enums.SystemConfigType;
+import com.senqicloud.senqimediaserver.exception.ServerErrorException;
 import com.senqicloud.senqimediaserver.exception.ValidateException;
+import com.senqicloud.senqimediaserver.model.entity.SystemConfig;
 import com.senqicloud.senqimediaserver.service.SystemConfigService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -27,7 +26,16 @@ public class SystemConfigController {
      */
     @GetMapping("/getAll")
     public Map<String, String> getAllConfigs() {
+        System.out.println("123");
         return systemConfigService.getAllConfigs();
+    }
+
+    /**
+     *  设置系统配置信息
+     * */
+    @PutMapping("/setAll")
+    public Map<String, String> setAllConfigs(@RequestBody Map<String, String> configs) {
+        return systemConfigService.setAllConfigs(configs);
     }
 
     /**
@@ -41,5 +49,24 @@ public class SystemConfigController {
         }
 
         return systemConfigService.getConfigByKey(key);
+    }
+
+    /**
+     * 设置指定系统配置
+     */
+    @PutMapping
+    public String setConfigByKey(@RequestBody SystemConfig systemConfig) {
+        // 判断参数是否正确
+        if (!SystemConfigType.containsKey(systemConfig.getConfigKey())){
+            throw new ValidateException("系统配置 KEY 错误！");
+        }
+
+        boolean isSet = systemConfigService.setConfigByKey(systemConfig);
+
+        if (isSet){
+            return "设置成功！";
+        }else {
+            throw new ServerErrorException("设置失败！");
+        }
     }
 }

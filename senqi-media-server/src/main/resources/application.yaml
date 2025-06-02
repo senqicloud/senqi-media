@@ -1,6 +1,6 @@
 spring:
   application:
-    name: senqi-pic-server
+    name: senqi-media-server
 
 
   datasource:
@@ -17,3 +17,5 @@ spring:
 jwt:
   secret: MyVerySecretKeyThatIsAtLeast32CharactersLong!
   expiration: 3600000
+server:
+  port: 8888
