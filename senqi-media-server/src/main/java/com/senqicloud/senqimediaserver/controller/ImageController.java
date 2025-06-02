@@ -31,7 +31,7 @@ public class ImageController {
             throw new ValidateException("图片不能为空！");
         }
 
-        // 文件格式不是视频
+        // 文件格式不是图片
         if (!FileUtils.isImage(file)) {
             throw new ValidateException("文件格式不是图片！");
         }
