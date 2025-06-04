@@ -3,11 +3,7 @@
 
 ## 简介
 
-SenQi Media 是由森启网络科技自主研发的一款高性能、易用且功能强大的图床系统。它旨在为开发者和企业提供稳定、安全、高效的图片存储与管理解决方案，支持多种上传方式，丰富的扩展接口，以及灵活的权限和流量管理。
-
-灵感来源于优秀的开源图床系统如 Chevereto，但我们专注于满足国内用户的实际需求，结合现代云计算技术和前后端分离架构，打造更加轻量且可定制的图床平台。
-
-
+SenQi Media 是一个支持图片与视频托管的图床系统，适合自用、团队协作或 SaaS 场景。项目采用前后端分离架构，基于 Spring Boot + Vue/Nuxt 实现，支持 Docker Compose 一键部署。
 
 ## 主要功能
 
@@ -42,6 +38,18 @@ SenQi Media 是由森启网络科技自主研发的一款高性能、易用且�
 - 安全：JWT 认证、权限控制
 - 部署：Docker 支持，易于扩展和维护
 
+
+## 项目结构
+
+```
+senqi-media/
+├── senqi-media-server/       # 后端 API 服务（Spring Boot）
+├── senqi-media-admin/        # 后台管理系统（Vue3 + Ant Design Vue）
+├── senqi-media-front/        # 前台图床展示站（Vue3 或 Nuxt）
+├── senqi-media-sql/          # 数据库初始化 SQL 脚本
+├── docker-compose.yml        # 一键部署配置
+└── README.md                 # 项目说明文档
+````
 
 
 ## 快速开始

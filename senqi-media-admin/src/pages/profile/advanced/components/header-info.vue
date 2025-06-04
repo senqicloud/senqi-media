@@ -5,24 +5,21 @@ const { t } = useI18n()
 </script>
 
 <template>
-  <a-row>
+  <a-row :span="24">
     <a-col :span="19">
       <span class="text-20px font-medium">
         {{ t('profile.basic.orderNumber') }}: 335231129436
       </span>
     </a-col>
     <a-col :span="5">
-      <a-radio-group v-model:value="command" button-style="solid">
-        <a-radio-button value="a">
-          {{ t('profile.advanced.create-do1') }}
-        </a-radio-button>
-        <a-radio-button value="b">
-          {{ t('profile.advanced.create-do2') }}
-        </a-radio-button>
-        <a-radio-button value="c">
-          {{ t('profile.advanced.create-do3') }}
-        </a-radio-button>
-      </a-radio-group>
+      <a-select
+          ref="select"
+          v-model:value="command"
+      >
+        <a-select-option value="a">{{ t('profile.advanced.create-do1') }}</a-select-option>
+        <a-select-option value="b">{{ t('profile.advanced.create-do2') }}</a-select-option>
+        <a-select-option value="c">{{ t('profile.advanced.create-do3') }}</a-select-option>
+      </a-select>
     </a-col>
   </a-row>
   <a-card :bordered="false" class="my-5">

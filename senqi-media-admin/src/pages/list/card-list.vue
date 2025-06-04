@@ -41,12 +41,12 @@ const data = ref([
   <page-container>
     <div class="mt-2">
       <a-row :gutter="16">
-        <a-col :xs="16" :sm="8" :md="6" :lg="6" :xl="6" class="mb-4">
+        <a-col :xs="24" :sm="12" :md="6" :lg="6" :xl="6" class="mb-4">
           <a-button class="w-1/1 h-204px" type="dashed">
             +新增产品
           </a-button>
         </a-col>
-        <a-col v-for="(item, index) in data" :key="index" :xs="16" :sm="8" :md="6" :lg="6" :xl="6" class="mb-4">
+        <a-col v-for="(item, index) in data" :key="index" :xs="24" :sm="12" :md="6" :lg="6" :xl="6" class="mb-4">
           <a-card
             :bordered="false"
             style="borderRadius: 0"
