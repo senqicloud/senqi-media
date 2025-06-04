@@ -19,10 +19,13 @@ import com.senqicloud.senqimediaserver.utils.RedisUtils;
 import com.senqicloud.senqimediaserver.utils.ValidationUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
+public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService, UserDetailsService {
     @Autowired
     private RedisUtils redisUtils;
 
@@ -174,5 +177,35 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         redisUtils.set(redisKey, true);
 
         return true;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String account) throws UsernameNotFoundException {
+        // 1. 构建查询器
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+
+        if (account.matches("\\d+")) {
+            queryWrapper.eq(User::getId, Long.parseLong(account))
+                    .or()
+                    .eq(User::getUsername, account);
+        } else {
+            queryWrapper.eq(User::getUsername, account);
+        }
+
+        // 2. 查询用户
+        User user = this.getOne(queryWrapper);
+
+        // 3. 判断用户是否存在
+        if (user == null) {
+            throw new UsernameNotFoundException("用户不存在！");
+        }
+
+        // 4. 返回 UserDetails 对象
+        return org.springframework.security.core.userdetails.User
+                .withUsername(user.getUsername())
+                .password(user.getPassword())
+                // TODO 用户角色需要从 User 对象中查询
+                .authorities("ROLE_USER")
+                .build();
     }
 }
