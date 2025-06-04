@@ -6,6 +6,8 @@ import com.senqicloud.senqimediaserver.model.request.UserLoginRequest;
 import com.senqicloud.senqimediaserver.model.request.UserRegisterRequest;
 import com.senqicloud.senqimediaserver.model.response.UserLoginResponse;
 import com.senqicloud.senqimediaserver.model.response.UserRegisterResponse;
+import com.senqicloud.senqimediaserver.response.Result;
+import com.senqicloud.senqimediaserver.response.ResultUtils;
 import com.senqicloud.senqimediaserver.service.JwtTokenService;
 import com.senqicloud.senqimediaserver.service.UserService;
 import com.senqicloud.senqimediaserver.strategy.login.LoginStrategy;
@@ -13,11 +15,9 @@ import com.senqicloud.senqimediaserver.strategy.login.LoginStrategyFactory;
 import com.senqicloud.senqimediaserver.utils.RedisKeyUtils;
 import com.senqicloud.senqimediaserver.utils.RedisUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 
@@ -26,6 +26,7 @@ import javax.validation.Valid;
  *  用户管理
  * */
 
+@Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -41,6 +42,12 @@ public class UserController {
 
     @Autowired
     private JwtTokenService jwtTokenService;
+
+    @GetMapping("/getUser")
+    public Result<String> getUser() {
+        log.info("进入了 Controller 方法！");
+        return ResultUtils.success("success");
+    }
 
     /**
      *  用户注册

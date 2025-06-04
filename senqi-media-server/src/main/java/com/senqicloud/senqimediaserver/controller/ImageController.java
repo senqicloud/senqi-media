@@ -15,7 +15,7 @@ import org.springframework.web.multipart.MultipartFile;
  *  图片管理
  * */
 @RestController
-@RequestMapping("/api/images/")
+@RequestMapping("/images")
 public class ImageController {
 
     @Autowired

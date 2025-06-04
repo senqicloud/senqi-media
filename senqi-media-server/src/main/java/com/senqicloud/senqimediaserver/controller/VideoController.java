@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
  *  视频管理
  * */
 @RestController
-@RequestMapping("/api/videos/")
+@RequestMapping("/videos")
 public class VideoController {
 
 

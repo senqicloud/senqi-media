@@ -19,3 +19,7 @@ jwt:
   expiration: 3600000
 server:
   port: 8888
+
+logging:
+  level:
+    org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerMapping: TRACE

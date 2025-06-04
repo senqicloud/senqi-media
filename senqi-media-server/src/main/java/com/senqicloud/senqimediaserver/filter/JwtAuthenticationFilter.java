@@ -1,5 +1,8 @@
 package com.senqicloud.senqimediaserver.filter;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.senqicloud.senqimediaserver.response.Result;
+import com.senqicloud.senqimediaserver.response.ResultCode;
 import com.senqicloud.senqimediaserver.service.JwtTokenService;
 import com.senqicloud.senqimediaserver.utils.RedisKeyUtils;
 import com.senqicloud.senqimediaserver.utils.RedisUtils;
@@ -17,8 +20,10 @@ import java.io.IOException;
 
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
+
     @Autowired
     private JwtTokenService jwtTokenService;
+
     @Autowired
     private RedisUtils redisUtils;
 
@@ -35,13 +40,29 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             // 2. 校验 Token
             if (!jwtTokenService.validateToken(token) || redisUtils.get(RedisKeyUtils.getJwtTokenKey(jwtTokenId)) != null) {
                 // Token 校验错误 或者 黑名单中存在则都校验登录失败，直接被拦截
-                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
-                return;
+                unauthorized(request, response);
             }
 
             // 3. 放行
             filterChain.doFilter(request, response);
+        } else {
+            unauthorized(request, response);
         }
 
+    }
+
+    /**
+     *  认证失败响应处理
+     * */
+    public void unauthorized(HttpServletRequest request, HttpServletResponse response) throws IOException {
+        response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403
+        response.setContentType("application/json;charset=utf-8");
+        Result<String> result = new Result<>(ResultCode.UNAUTHORIZED);
+
+        ObjectMapper mapper = new ObjectMapper();
+        String json = mapper.writeValueAsString(result);
+
+        response.getWriter().write(json);
+        response.getWriter().flush();
     }
 }
