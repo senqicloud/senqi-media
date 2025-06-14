@@ -29,7 +29,8 @@ public class RedisConfig {
     }
 
     @Bean
-    public RedisTemplate<String, Object> objectRedisTemplate(RedisConnectionFactory connectionFactory) {
+    public RedisTemplate<String, Object> objectRedisTemplate(
+            RedisConnectionFactory connectionFactory) {
         RedisTemplate<String, Object> template = new RedisTemplate<>();
         template.setConnectionFactory(connectionFactory);
 
@@ -46,5 +47,4 @@ public class RedisConfig {
         template.afterPropertiesSet();
         return template;
     }
-
 }

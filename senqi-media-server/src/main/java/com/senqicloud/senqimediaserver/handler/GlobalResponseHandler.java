@@ -17,18 +17,20 @@ public class GlobalResponseHandler implements ResponseBodyAdvice<Object> {
 
     // 是否支持 Advice（这里所有 RestController 都支持）
     @Override
-    public boolean supports(MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
+    public boolean supports(
+            MethodParameter returnType, Class<? extends HttpMessageConverter<?>> converterType) {
         return true;
     }
 
     // 对响应体做包装处理
     @Override
-    public Object beforeBodyWrite(Object body,
-                                  MethodParameter returnType,
-                                  MediaType selectedContentType,
-                                  Class<? extends HttpMessageConverter<?>> selectedConverterType,
-                                  org.springframework.http.server.ServerHttpRequest request,
-                                  org.springframework.http.server.ServerHttpResponse response) {
+    public Object beforeBodyWrite(
+            Object body,
+            MethodParameter returnType,
+            MediaType selectedContentType,
+            Class<? extends HttpMessageConverter<?>> selectedConverterType,
+            org.springframework.http.server.ServerHttpRequest request,
+            org.springframework.http.server.ServerHttpResponse response) {
 
         // 已是 Result 类型，无需再次包装（如异常返回、手动返回）
         if (body instanceof Result<?> || body instanceof ResponseEntity) {

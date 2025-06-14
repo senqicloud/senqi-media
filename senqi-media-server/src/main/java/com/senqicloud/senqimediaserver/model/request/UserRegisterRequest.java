@@ -1,11 +1,10 @@
 package com.senqicloud.senqimediaserver.model.request;
 
 import com.senqicloud.senqimediaserver.validator.PasswordMatches;
-import lombok.Data;
-
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
+import lombok.Data;
 
 // 用户注册请求体
 @Data

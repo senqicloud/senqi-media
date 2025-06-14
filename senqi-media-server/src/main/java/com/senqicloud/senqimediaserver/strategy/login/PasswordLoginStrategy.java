@@ -10,8 +10,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class PasswordLoginStrategy implements LoginStrategy {
 
-    @Autowired
-    private UserService userService;
+    @Autowired private UserService userService;
 
     @Override
     public boolean supports(LoginType loginType) {
@@ -22,6 +21,4 @@ public class PasswordLoginStrategy implements LoginStrategy {
     public UserLoginResponse login(UserLoginRequest userLoginRequest) {
         return userService.loginByAccountAndPassword(userLoginRequest);
     }
-
-
 }

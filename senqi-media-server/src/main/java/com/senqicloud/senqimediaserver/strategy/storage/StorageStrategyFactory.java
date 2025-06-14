@@ -2,9 +2,8 @@ package com.senqicloud.senqimediaserver.strategy.storage;
 
 import com.senqicloud.senqimediaserver.enums.StorageType;
 import com.senqicloud.senqimediaserver.exception.ServerErrorException;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component
 public class StorageStrategyFactory {
@@ -22,5 +21,4 @@ public class StorageStrategyFactory {
                 .findFirst()
                 .orElseThrow(() -> new ServerErrorException("不支持的存储方式"));
     }
-
 }

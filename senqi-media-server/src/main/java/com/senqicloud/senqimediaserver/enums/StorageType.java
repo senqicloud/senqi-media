@@ -3,13 +3,10 @@ package com.senqicloud.senqimediaserver.enums;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-/**
- * 存储桶类型
- */
+/** 存储桶类型 */
 @Getter
 @AllArgsConstructor
 public enum StorageType {
-
     FTP("FTP", "文件传输协议"),
     SFTP("SFTP", "安全文件传输协议"),
     COS("COS", "腾讯云对象存储服务"),

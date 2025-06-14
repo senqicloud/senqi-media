@@ -2,9 +2,8 @@ package com.senqicloud.senqimediaserver.strategy.login;
 
 import com.senqicloud.senqimediaserver.enums.LoginType;
 import com.senqicloud.senqimediaserver.exception.ServerErrorException;
-import org.springframework.stereotype.Component;
-
 import java.util.List;
+import org.springframework.stereotype.Component;
 
 @Component
 public class LoginStrategyFactory {

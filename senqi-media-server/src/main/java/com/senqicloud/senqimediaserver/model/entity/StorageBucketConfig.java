@@ -10,13 +10,11 @@ public abstract class StorageBucketConfig {
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-class OssConfig extends StorageBucketConfig {
-}
+class OssConfig extends StorageBucketConfig {}
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-class FtpConfig extends StorageBucketConfig {
-}
+class FtpConfig extends StorageBucketConfig {}
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -26,5 +24,3 @@ class CosConfig extends StorageBucketConfig {
     private String secretKey;
     private String bucketName;
 }
-
-

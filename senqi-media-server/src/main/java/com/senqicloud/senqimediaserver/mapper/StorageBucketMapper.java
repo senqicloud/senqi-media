@@ -5,5 +5,4 @@ import com.senqicloud.senqimediaserver.model.entity.StorageBucket;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface StorageBucketMapper extends BaseMapper<StorageBucket> {
-}
+public interface StorageBucketMapper extends BaseMapper<StorageBucket> {}

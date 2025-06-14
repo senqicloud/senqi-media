@@ -12,13 +12,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class StorageServiceImpl implements StorageService {
 
-    @Autowired
-    private StorageStrategyFactory storageStrategyFactory;
+    @Autowired private StorageStrategyFactory storageStrategyFactory;
 
     @Override
     public ImageUploadResponse upload(MultipartFile file, StorageBucket storageBucket) {
         // 1. 根据存储桶类型获取对应的存储桶策略
-        StorageStrategy storageStrategy = storageStrategyFactory.getStrategy(storageBucket.getStorageType());
+        StorageStrategy storageStrategy =
+                storageStrategyFactory.getStrategy(storageBucket.getStorageType());
 
         // 2. 执行上传文件
         String url = storageStrategy.uploadFile(file, file.getOriginalFilename());

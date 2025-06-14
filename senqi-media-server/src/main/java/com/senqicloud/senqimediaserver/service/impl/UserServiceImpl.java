@@ -25,12 +25,11 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 @Service
-public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService, UserDetailsService {
-    @Autowired
-    private RedisUtils redisUtils;
+public class UserServiceImpl extends ServiceImpl<UserMapper, User>
+        implements UserService, UserDetailsService {
+    @Autowired private RedisUtils redisUtils;
 
-    @Autowired
-    private JwtTokenService jwtTokenService;
+    @Autowired private JwtTokenService jwtTokenService;
 
     @Override
     public UserRegisterResponse register(UserRegisterRequest userRegisterRequest) {
@@ -108,7 +107,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 1. 校验短信验证码是否匹配
         String phone = userLoginRequest.getAccount();
 
-        String redisSmsCode = redisUtils.get(RedisKeyUtils.getSmsCaptchaKey(UserActionType.LOGIN, phone)).toString();
+        String redisSmsCode =
+                redisUtils.get(RedisKeyUtils.getSmsCaptchaKey(UserActionType.LOGIN, phone)).toString();
 
         if (!userLoginRequest.getCode().equals(redisSmsCode)) {
             throw new ValidateException("短信验证码错误！");
@@ -142,7 +142,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         // 1. 校验邮箱验证码是否匹配
         String email = userLoginRequest.getAccount();
 
-        String redisEmailCode = redisUtils.get(RedisKeyUtils.getSmsCaptchaKey(UserActionType.LOGIN, email)).toString();
+        String redisEmailCode =
+                redisUtils.get(RedisKeyUtils.getSmsCaptchaKey(UserActionType.LOGIN, email)).toString();
 
         if (!userLoginRequest.getCode().equals(redisEmailCode)) {
             throw new ValidateException("邮箱验证码错误！");
@@ -185,9 +186,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
 
         if (account.matches("\\d+")) {
-            queryWrapper.eq(User::getId, Long.parseLong(account))
-                    .or()
-                    .eq(User::getUsername, account);
+            queryWrapper.eq(User::getId, Long.parseLong(account)).or().eq(User::getUsername, account);
         } else {
             queryWrapper.eq(User::getUsername, account);
         }
@@ -201,8 +200,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         }
 
         // 4. 返回 UserDetails 对象
-        return org.springframework.security.core.userdetails.User
-                .withUsername(user.getUsername())
+        return org.springframework.security.core.userdetails.User.withUsername(user.getUsername())
                 .password(user.getPassword())
                 // TODO 用户角色需要从 User 对象中查询
                 .authorities("ROLE_USER")

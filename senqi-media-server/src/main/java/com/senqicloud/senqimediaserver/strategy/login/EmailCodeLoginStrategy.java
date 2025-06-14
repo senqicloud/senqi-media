@@ -11,8 +11,7 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmailCodeLoginStrategy implements LoginStrategy {
 
-    @Autowired
-    private UserService userService;
+    @Autowired private UserService userService;
 
     @Override
     public boolean supports(LoginType loginType) {

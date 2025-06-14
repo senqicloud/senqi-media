@@ -11,25 +11,24 @@ import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.io.IOException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
-import java.io.IOException;
-
 @Component
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-    @Autowired
-    private JwtTokenService jwtTokenService;
+    @Autowired private JwtTokenService jwtTokenService;
 
-    @Autowired
-    private RedisUtils redisUtils;
+    @Autowired private RedisUtils redisUtils;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(
+            HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
+            throws ServletException, IOException {
         // 0. 放行白名单
         String pathInfo = request.getRequestURI();
 
@@ -48,7 +47,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             String jwtTokenId = jwtTokenService.getJwtTokenId(token);
 
             // 2. 校验 Token
-            if (!jwtTokenService.validateToken(token) || redisUtils.get(RedisKeyUtils.getJwtTokenKey(jwtTokenId)) != null) {
+            if (!jwtTokenService.validateToken(token)
+                    || redisUtils.get(RedisKeyUtils.getJwtTokenKey(jwtTokenId)) != null) {
                 // Token 校验错误 或者 黑名单中存在则都校验登录失败，直接被拦截
                 unauthorized(request, response);
             }
@@ -58,13 +58,11 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         } else {
             unauthorized(request, response);
         }
-
     }
 
-    /**
-     *  认证失败响应处理
-     * */
-    public void unauthorized(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    /** 认证失败响应处理 */
+    public void unauthorized(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
         response.setStatus(HttpServletResponse.SC_FORBIDDEN); // 403
         response.setContentType("application/json;charset=utf-8");
         Result<String> result = new Result<>(ResultCode.UNAUTHORIZED);

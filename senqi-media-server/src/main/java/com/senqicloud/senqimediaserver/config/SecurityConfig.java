@@ -26,18 +26,20 @@ public class SecurityConfig {
     // 自定义的 JWT 校验
     private final JwtAuthenticationFilter jwtAuthenticationFilter;
 
-    @Autowired
-    private UserService userService;
+    @Autowired private UserService userService;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        return http
-                .csrf(AbstractHttpConfigurer::disable)
-                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 无状态
-                .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(SecurityWhiteList.PATHS).permitAll() // 放行接口
-                        .anyRequest().authenticated() // 其他接口需要认证
-                )
+        return http.csrf(AbstractHttpConfigurer::disable)
+                .sessionManagement(
+                        session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)) // 无状态
+                .authorizeHttpRequests(
+                        auth ->
+                                auth.requestMatchers(SecurityWhiteList.PATHS)
+                                        .permitAll() // 放行接口
+                                        .anyRequest()
+                                        .authenticated() // 其他接口需要认证
+                        )
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class)
                 .build();
     }
@@ -59,7 +61,8 @@ public class SecurityConfig {
 
     // 认证管理器（用于登录时手动认证）
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
+            throws Exception {
         return config.getAuthenticationManager();
     }
 }

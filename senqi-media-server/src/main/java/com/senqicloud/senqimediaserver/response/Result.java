@@ -1,7 +1,5 @@
 package com.senqicloud.senqimediaserver.response;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.Data;
 
 @Data
@@ -16,7 +14,7 @@ public class Result<T> {
         this.msg = codeEnum.getMessage();
     }
 
-    public Result(ResultCode codeEnum,String msg) {
+    public Result(ResultCode codeEnum, String msg) {
         this.code = codeEnum.getCode();
         this.msg = msg;
     }
@@ -32,5 +30,4 @@ public class Result<T> {
         this.msg = message;
         this.data = data;
     }
-
 }

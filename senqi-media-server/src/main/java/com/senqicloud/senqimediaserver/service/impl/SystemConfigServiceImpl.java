@@ -8,14 +8,14 @@ import com.senqicloud.senqimediaserver.exception.ValidateException;
 import com.senqicloud.senqimediaserver.mapper.SystemConfigMapper;
 import com.senqicloud.senqimediaserver.model.entity.SystemConfig;
 import com.senqicloud.senqimediaserver.service.SystemConfigService;
-import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.springframework.stereotype.Service;
 
 @Service
-public class SystemConfigServiceImpl extends ServiceImpl<SystemConfigMapper, SystemConfig> implements SystemConfigService {
+public class SystemConfigServiceImpl extends ServiceImpl<SystemConfigMapper, SystemConfig>
+        implements SystemConfigService {
 
     @Override
     public String getConfigByKey(String key) {
@@ -46,24 +46,24 @@ public class SystemConfigServiceImpl extends ServiceImpl<SystemConfigMapper, Sys
     @Override
     public Map<String, String> setAllConfigs(Map<String, String> configs) {
         // 遍历每一个键值对
-        configs.forEach((key, value) -> {
-            // 1. 判断 Key 是否合法
-            if (!SystemConfigType.containsKey(key)) {
-                throw new ValidateException("包含不合法的配置项！");
-            }
+        configs.forEach(
+                (key, value) -> {
+                    // 1. 判断 Key 是否合法
+                    if (!SystemConfigType.containsKey(key)) {
+                        throw new ValidateException("包含不合法的配置项！");
+                    }
 
-            // 2. key 合法，执行更改业务
-            SystemConfig systemConfig = new SystemConfig();
-            systemConfig.setConfigKey(key);
-            systemConfig.setConfigValue(value);
+                    // 2. key 合法，执行更改业务
+                    SystemConfig systemConfig = new SystemConfig();
+                    systemConfig.setConfigKey(key);
+                    systemConfig.setConfigValue(value);
 
-            // 3. 构建更新对象
-            LambdaUpdateWrapper<SystemConfig> updateWrapper = new LambdaUpdateWrapper<>();
-            updateWrapper.eq(SystemConfig::getConfigKey, key);
-            updateWrapper.set(SystemConfig::getConfigValue, systemConfig.getConfigValue());
-            this.update(updateWrapper);
-
-        });
+                    // 3. 构建更新对象
+                    LambdaUpdateWrapper<SystemConfig> updateWrapper = new LambdaUpdateWrapper<>();
+                    updateWrapper.eq(SystemConfig::getConfigKey, key);
+                    updateWrapper.set(SystemConfig::getConfigValue, systemConfig.getConfigValue());
+                    this.update(updateWrapper);
+                });
         // 4. 返回
         return configs;
     }

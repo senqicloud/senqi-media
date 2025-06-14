@@ -1,20 +1,19 @@
 package com.senqicloud.senqimediaserver.utils;
 
-import org.springframework.web.multipart.MultipartFile;
-
 import java.util.Arrays;
 import java.util.List;
+import org.springframework.web.multipart.MultipartFile;
 
-/**
- * 文件相关的工具类
- */
+/** 文件相关的工具类 */
 public class FileUtils {
 
     // 图片格式扩展名
-    private static final List<String> IMAGE_EXTENSIONS = Arrays.asList("jpg", "jpeg", "png", "gif", "bmp", "webp");
+    private static final List<String> IMAGE_EXTENSIONS =
+            Arrays.asList("jpg", "jpeg", "png", "gif", "bmp", "webp");
 
     // 视频格式扩展名
-    private static final List<String> VIDEO_EXTENSIONS = Arrays.asList("mp4", "avi", "mov", "mkv", "flv", "wmv");
+    private static final List<String> VIDEO_EXTENSIONS =
+            Arrays.asList("mp4", "avi", "mov", "mkv", "flv", "wmv");
 
     /**
      * 判断文件是否为图片
@@ -29,7 +28,8 @@ public class FileUtils {
 
         // 通过扩展名判断
         String fileName = file.getOriginalFilename();
-        if (fileName != null && IMAGE_EXTENSIONS.stream().anyMatch(ext -> fileName.toLowerCase().endsWith("." + ext))) {
+        if (fileName != null
+                && IMAGE_EXTENSIONS.stream().anyMatch(ext -> fileName.toLowerCase().endsWith("." + ext))) {
             return true;
         }
 
@@ -41,7 +41,6 @@ public class FileUtils {
 
         return false;
     }
-
 
     /**
      * 判断文件是否为视频
@@ -56,7 +55,8 @@ public class FileUtils {
 
         // 通过扩展名判断
         String fileName = file.getOriginalFilename();
-        if (fileName != null && VIDEO_EXTENSIONS.stream().anyMatch(ext -> fileName.toLowerCase().endsWith("." + ext))) {
+        if (fileName != null
+                && VIDEO_EXTENSIONS.stream().anyMatch(ext -> fileName.toLowerCase().endsWith("." + ext))) {
             return true;
         }
 
@@ -68,5 +68,4 @@ public class FileUtils {
 
         return false;
     }
-
 }

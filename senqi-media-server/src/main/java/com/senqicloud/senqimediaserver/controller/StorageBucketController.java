@@ -3,20 +3,18 @@ package com.senqicloud.senqimediaserver.controller;
 import com.senqicloud.senqimediaserver.exception.ValidateException;
 import com.senqicloud.senqimediaserver.model.entity.StorageBucket;
 import com.senqicloud.senqimediaserver.service.StorageBucketService;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
-// 存储桶控制器
+/** 存储桶管理 */
 @RestController
 @RequestMapping("/storage_bucket")
 public class StorageBucketController {
 
-    @Autowired
-    private StorageBucketService storageBucketService;
+    @Autowired private StorageBucketService storageBucketService;
 
-    // 添加存储桶
+    /** 添加存储桶 */
     @PostMapping
     public boolean add(StorageBucket storageBucket) {
         if (storageBucket == null) {
@@ -26,7 +24,7 @@ public class StorageBucketController {
         return storageBucketService.add(storageBucket);
     }
 
-    // 删除存储桶
+    /** 删除存储桶 */
     @DeleteMapping
     public boolean delete(StorageBucket storageBucket) {
         if (storageBucket == null) {
@@ -36,7 +34,7 @@ public class StorageBucketController {
         return storageBucketService.delete(storageBucket);
     }
 
-    // 修改存储桶
+    /** 修改存储桶 */
     @PutMapping
     public boolean update(StorageBucket storageBucket) {
         if (storageBucket == null) {
@@ -46,7 +44,7 @@ public class StorageBucketController {
         return storageBucketService.update(storageBucket);
     }
 
-    // 查询指定存储桶
+    /** 查询指定存储桶 */
     @GetMapping("/{id}")
     public StorageBucket get(@PathVariable String id) {
         if (id == null || id.isEmpty()) {
@@ -55,7 +53,7 @@ public class StorageBucketController {
         return storageBucketService.getById(id);
     }
 
-    // 查询存储桶列表
+    /** 查询存储桶列表 */
     @GetMapping("/list")
     public List<StorageBucket> list() {
 

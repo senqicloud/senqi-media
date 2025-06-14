@@ -2,7 +2,6 @@ package com.senqicloud.senqimediaserver.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.senqicloud.senqimediaserver.model.entity.SystemConfig;
-
 import java.util.Map;
 
 public interface SystemConfigService extends IService<SystemConfig> {

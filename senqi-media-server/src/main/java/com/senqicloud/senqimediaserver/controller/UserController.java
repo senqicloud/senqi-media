@@ -15,33 +15,24 @@ import com.senqicloud.senqimediaserver.strategy.login.LoginStrategyFactory;
 import com.senqicloud.senqimediaserver.utils.RedisKeyUtils;
 import com.senqicloud.senqimediaserver.utils.RedisUtils;
 import jakarta.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
-
-
-/**
- *  用户管理
- * */
-
+/** 用户管理 */
 @Slf4j
 @RestController
 @RequestMapping("/user")
 public class UserController {
 
-    @Autowired
-    private UserService userService;
+    @Autowired private UserService userService;
 
-    @Autowired
-    private RedisUtils redisUtils;
+    @Autowired private RedisUtils redisUtils;
 
-    @Autowired
-    private LoginStrategyFactory loginStrategyFactory;
+    @Autowired private LoginStrategyFactory loginStrategyFactory;
 
-    @Autowired
-    private JwtTokenService jwtTokenService;
+    @Autowired private JwtTokenService jwtTokenService;
 
     @GetMapping("/getUser")
     public Result<String> getUser() {
@@ -49,21 +40,28 @@ public class UserController {
         return ResultUtils.success("success");
     }
 
-    /**
-     *  用户注册
-     * */
+    /** 用户注册 */
     @PostMapping("/register")
-    public UserRegisterResponse register(@Valid @RequestBody UserRegisterRequest userRegisterRequest) {
+    public UserRegisterResponse register(
+            @Valid @RequestBody UserRegisterRequest userRegisterRequest) {
         // 1. 校验图形验证码是否正确
         // 根据 图形验证码ID + 图形验证码校验
-        String redisCaptchaCode = redisUtils.get(RedisKeyUtils.getImageCaptchaKey(userRegisterRequest.getCaptchaId())).toString();
+        String redisCaptchaCode =
+                redisUtils
+                        .get(RedisKeyUtils.getImageCaptchaKey(userRegisterRequest.getCaptchaId()))
+                        .toString();
 
         if (!userRegisterRequest.getCaptchaCode().equals(redisCaptchaCode)) {
             throw new ValidateException("图形验证码错误！");
         }
 
         // 2. 判断邮箱或者短信验证码是否正确
-        String redisEmailCode = redisUtils.get(RedisKeyUtils.getEmailCaptchaKey(UserActionType.REGISTER, userRegisterRequest.getEmail())).toString();
+        String redisEmailCode =
+                redisUtils
+                        .get(
+                                RedisKeyUtils.getEmailCaptchaKey(
+                                        UserActionType.REGISTER, userRegisterRequest.getEmail()))
+                        .toString();
 
         if (!userRegisterRequest.getCode().equals(redisEmailCode)) {
             throw new ValidateException("验证码错误！");
@@ -73,9 +71,7 @@ public class UserController {
         return userService.register(userRegisterRequest);
     }
 
-    /**
-     *  用户登录
-     * */
+    /** 用户登录 */
     @PostMapping("/login")
     public UserLoginResponse login(@Valid @RequestBody UserLoginRequest userLoginRequest) {
         // 1. 获取对应的登录策略
@@ -83,12 +79,9 @@ public class UserController {
 
         // 2. 调用实际的登录方法
         return strategy.login(userLoginRequest);
-
     }
 
-    /**
-     *  退出登录
-     */
+    /** 退出登录 */
     @PostMapping("/logout")
     public String login(HttpServletRequest request) {
         // 从 Redis 中删除 JWT Token ID
@@ -100,5 +93,4 @@ public class UserController {
 
         return userService.logout(token) ? "退出成功！" : "退出失败！";
     }
-
 }

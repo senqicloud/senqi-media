@@ -7,9 +7,7 @@ import com.senqicloud.senqimediaserver.enums.StorageType;
 import com.senqicloud.senqimediaserver.handler.StorageConfigTypeHandler;
 import lombok.Data;
 
-/**
- * 存储桶
- */
+/** 存储桶 */
 @Data
 public class StorageBucket {
 
@@ -35,12 +33,12 @@ public class StorageBucket {
     private Long availableSize;
 
     // 状态
-    private Boolean enabled;   // 0 为禁用，1 为启用
+    private Boolean enabled; // 0 为禁用，1 为启用
 
     // 优先级
     private Long priority;
 
     // 存储桶配置
-    @TableField(value = "storage_bucket_config",typeHandler = StorageConfigTypeHandler.class)
+    @TableField(value = "storage_bucket_config", typeHandler = StorageConfigTypeHandler.class)
     private StorageBucketConfig storageBucketConfig;
 }

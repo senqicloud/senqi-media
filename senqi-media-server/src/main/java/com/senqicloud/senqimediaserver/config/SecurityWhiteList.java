@@ -6,9 +6,7 @@ public class SecurityWhiteList {
 
     // 白名单 URL
     public static final String[] PATHS = {
-            "/user/login",
-            "/user/register",
-            "/images/upload",
+        "/user/login", "/user/register", "/images/upload",
     };
 
     // Ant 风格的路径匹配器

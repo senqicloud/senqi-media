@@ -5,5 +5,4 @@ import com.senqicloud.senqimediaserver.model.entity.SystemConfig;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface SystemConfigMapper extends BaseMapper<SystemConfig> {
-}
+public interface SystemConfigMapper extends BaseMapper<SystemConfig> {}

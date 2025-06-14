@@ -1,12 +1,12 @@
 package com.senqicloud.senqimediaserver.validator;
 
+import java.lang.annotation.*;
 import javax.validation.Constraint;
 import javax.validation.Payload;
-import java.lang.annotation.*;
 
 @Documented
 @Constraint(validatedBy = PasswordMatchesValidator.class)
-@Target({ ElementType.TYPE })
+@Target({ElementType.TYPE})
 @Retention(RetentionPolicy.RUNTIME)
 public @interface PasswordMatches {
 

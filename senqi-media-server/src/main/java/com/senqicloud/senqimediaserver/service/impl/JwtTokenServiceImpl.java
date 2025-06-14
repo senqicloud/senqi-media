@@ -7,12 +7,11 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
-
 import java.security.Key;
 import java.util.Date;
 import java.util.UUID;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.stereotype.Service;
 
 @Service
 public class JwtTokenServiceImpl implements JwtTokenService {
@@ -35,7 +34,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
         return Jwts.builder()
                 .setSubject(String.valueOf(user.getId())) // 用户 ID 作为唯一标识
                 .claim("username", user.getUsername())
-                .setId(UUID.randomUUID().toString())      // 设置 JWT Token ID
+                .setId(UUID.randomUUID().toString()) // 设置 JWT Token ID
                 .setIssuedAt(now)
                 .setExpiration(expiryDate)
                 .signWith(getSigningKey(), SignatureAlgorithm.HS256)
@@ -45,10 +44,7 @@ public class JwtTokenServiceImpl implements JwtTokenService {
     @Override
     public boolean validateToken(String token) {
         try {
-            Jwts.parserBuilder()
-                    .setSigningKey(getSigningKey())
-                    .build()
-                    .parseClaimsJws(token);
+            Jwts.parserBuilder().setSigningKey(getSigningKey()).build().parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
             return false;

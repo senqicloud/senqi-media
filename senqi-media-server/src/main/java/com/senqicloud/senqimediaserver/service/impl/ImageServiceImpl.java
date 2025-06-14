@@ -13,11 +13,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class ImageServiceImpl implements ImageService {
 
-    @Autowired
-    private StorageService storageService;
+    @Autowired private StorageService storageService;
 
-    @Autowired
-    private StorageBucketService storageBucketService;
+    @Autowired private StorageBucketService storageBucketService;
 
     @Override
     public ImageUploadResponse upload(MultipartFile file) {

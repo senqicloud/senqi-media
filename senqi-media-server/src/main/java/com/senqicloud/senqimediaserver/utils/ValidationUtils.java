@@ -4,9 +4,7 @@ package com.senqicloud.senqimediaserver.utils;
 public class ValidationUtils {
 
     // 私有构造方法，防止实例化
-    private ValidationUtils(){
-
-    }
+    private ValidationUtils() {}
 
     // 判断输入是否为手机号
     public static boolean isPhone(String input) {
