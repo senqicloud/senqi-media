@@ -17,6 +17,7 @@ public class FtpStorageStrategy implements StorageStrategy {
 
     @Override
     public String uploadFile(MultipartFile file, String fileName) {
+
         return "";
     }
 }

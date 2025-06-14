@@ -17,14 +17,6 @@ public class UserLoginRequest {
     @Size(min = 6, max = 32, message = "密码长度必须在 6~32 位之间")
     private String password;
 
-    // 图形验证码 ID
-    @NotBlank(message = "图形验证码 ID")
-    private String captchaId;
-
-    // 图形验证码
-    @NotBlank(message = "图形验证码不能为空")
-    private String captchaCode;
-
     // 验证码
     @NotBlank(message = "验证码不能为空")
     private String code;

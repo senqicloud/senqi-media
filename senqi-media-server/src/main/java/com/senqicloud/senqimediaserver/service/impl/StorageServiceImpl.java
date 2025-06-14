@@ -17,13 +17,13 @@ public class StorageServiceImpl implements StorageService {
 
     @Override
     public ImageUploadResponse upload(MultipartFile file, StorageBucket storageBucket) {
-        // 根据存储桶类型获取对应的存储桶策略
+        // 1. 根据存储桶类型获取对应的存储桶策略
         StorageStrategy storageStrategy = storageStrategyFactory.getStrategy(storageBucket.getStorageType());
 
-        // 执行上传文件
+        // 2. 执行上传文件
         String url = storageStrategy.uploadFile(file, file.getOriginalFilename());
 
-        // 构建返回结构体
+        // 3. 构建返回结构体
         ImageUploadResponse imageUploadResponse = new ImageUploadResponse();
         imageUploadResponse.setUrl(url);
 

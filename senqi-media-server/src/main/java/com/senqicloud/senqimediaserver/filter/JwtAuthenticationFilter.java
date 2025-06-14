@@ -1,6 +1,7 @@
 package com.senqicloud.senqimediaserver.filter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.senqicloud.senqimediaserver.config.SecurityWhiteList;
 import com.senqicloud.senqimediaserver.response.Result;
 import com.senqicloud.senqimediaserver.response.ResultCode;
 import com.senqicloud.senqimediaserver.service.JwtTokenService;
@@ -29,6 +30,15 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        // 0. 放行白名单
+        String pathInfo = request.getRequestURI();
+
+        // 判断是否在白名单内
+        if (SecurityWhiteList.isWhitelisted(pathInfo)) {
+            filterChain.doFilter(request, response);
+            return;
+        }
+
         // 1. 获取 JWT Token
         String authHeader = request.getHeader(HttpHeaders.AUTHORIZATION);
 

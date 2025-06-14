@@ -1,5 +1,6 @@
 package com.senqicloud.senqimediaserver.service.impl;
 
+import com.senqicloud.senqimediaserver.exception.ServerErrorException;
 import com.senqicloud.senqimediaserver.model.entity.StorageBucket;
 import com.senqicloud.senqimediaserver.model.response.ImageUploadResponse;
 import com.senqicloud.senqimediaserver.service.ImageService;
@@ -21,9 +22,13 @@ public class ImageServiceImpl implements ImageService {
     @Override
     public ImageUploadResponse upload(MultipartFile file) {
         // 1. 获取一个合适的存储桶
-        StorageBucket storageBucket = storageBucketService.getStorageBucket();
+        StorageBucket storageBucket = storageBucketService.getStorageBucket(file);
+
+        if (storageBucket == null) {
+            throw new ServerErrorException("系统没有合适的存储桶！");
+        }
 
         // 2. 调用文件上传的对应策略
-        return storageService.upload(file,storageBucket);
+        return storageService.upload(file, storageBucket);
     }
 }
